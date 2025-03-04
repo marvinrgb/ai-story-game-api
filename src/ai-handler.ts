@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { PrismaClient } from '@prisma/client';
 import fs from "fs";
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || "");
 const textModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 // export async function test() {
 //   // createStory()

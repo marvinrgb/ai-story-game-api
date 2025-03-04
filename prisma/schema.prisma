@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -21,7 +21,7 @@ model Story {
 model Snippet {
   id Int @id @default(autoincrement())
   index Int
-  text String
+  text String @db.Text
   story_id Int
   story Story @relation(references: [id], fields: [story_id])
   options Option[]
@@ -30,7 +30,7 @@ model Snippet {
 model Option {
   id Int @id @default(autoincrement())
   index Int
-  text String
+  text String @db.Text
   snippet_id Int
   snippet Snippet @relation(references: [id], fields: [snippet_id])
 }

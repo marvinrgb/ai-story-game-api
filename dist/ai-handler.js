@@ -16,7 +16,7 @@ exports.continueStory = exports.createStory = void 0;
 const generative_ai_1 = require("@google/generative-ai");
 const client_1 = require("@prisma/client");
 const fs_1 = __importDefault(require("fs"));
-const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
+const genAI = new generative_ai_1.GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || "");
 const textModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 // export async function test() {
 //   // createStory()

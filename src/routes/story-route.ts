@@ -33,7 +33,7 @@ router.get('/', jwtCheck, async (req:Request, res:Response, next:NextFunction) =
   // console.log(req.auth.token)
   const user_data = (await axios.get("https://dev-marvinrgb.eu.auth0.com/userinfo", {
     headers: {
-      Authorization: `Bearer ${req.auth.token}`
+      Authorization: `Bearer ${req.auth?.token}`
     }
   })).data
   // console.log(user_data)
@@ -41,7 +41,7 @@ router.get('/', jwtCheck, async (req:Request, res:Response, next:NextFunction) =
     const db = new PrismaClient();
     if (req.query.story_id) {
       const story_id = Number(req.query.story_id);
-      const story  = await db.story.findFirst({
+      const story : {[key: string]: any}|null  = await db.story.findFirst({
         where: {
           id: story_id,
           OR: [
@@ -63,7 +63,7 @@ router.get('/', jwtCheck, async (req:Request, res:Response, next:NextFunction) =
       console.log(user_data.email)
       console.log(story?.user_mail)
       if (story?.user_mail == user_data.email) {
-        story.editable = true;
+        story!.editable = true;
       }
       const options = await db.option.findMany({
         where: {
@@ -96,7 +96,7 @@ router.put("/", jwtCheck, async (req:Request, res:Response, next:NextFunction) =
     
     const user_data = (await axios.get("https://dev-marvinrgb.eu.auth0.com/userinfo", {
       headers: {
-        Authorization: `Bearer ${req.auth.token}`
+        Authorization: `Bearer ${req.auth?.token}`
       }
     })).data
     const data = await continueStory(Number(req.query.story_id), Number(req.query.option_id), user_data.email);
@@ -111,7 +111,7 @@ router.post("/", jwtCheck, async (req:Request, res:Response, next:NextFunction) 
     
     const user_data = (await axios.get("https://dev-marvinrgb.eu.auth0.com/userinfo", {
       headers: {
-        Authorization: `Bearer ${req.auth.token}`
+        Authorization: `Bearer ${req.auth?.token}`
       }
     })).data
     // const db = new PrismaClient();
