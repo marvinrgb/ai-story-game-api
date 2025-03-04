@@ -10,6 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Default {
+model Story {
   id Int @id @default(autoincrement())
+  title String
+  user_mail String?
+  public Boolean @default(false)
+  snippets Snippet[]
+}
+
+model Snippet {
+  id Int @id @default(autoincrement())
+  index Int
+  text String
+  story_id Int
+  story Story @relation(references: [id], fields: [story_id])
+  options Option[]
+}
+
+model Option {
+  id Int @id @default(autoincrement())
+  index Int
+  text String
+  snippet_id Int
+  snippet Snippet @relation(references: [id], fields: [snippet_id])
 }

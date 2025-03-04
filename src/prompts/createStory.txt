@@ -1,0 +1,3 @@
+Generate me a Story without an ending. Also give the story a title. i also want 2-4 possible options on how the story should continue. The following tags should give a slight direction for the vibe of the story: --tags--. I will provide a topic after this sentence, if the topic is called default then think of a random topic yourself. --topic--
+
+return {title:string,story:string,options:Array<string>}

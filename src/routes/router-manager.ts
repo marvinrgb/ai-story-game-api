@@ -1,8 +1,8 @@
 import { Router }from 'express';
 const router = Router();
 
-import defaultRoute from './default-route.js';
+import storiesRoute from './story-route.js';
 
-router.use('/default', defaultRoute);
+router.use('/stories', storiesRoute);
 
 export default router;

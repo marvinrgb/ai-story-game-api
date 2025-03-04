@@ -1,0 +1,7 @@
+I will give you a story and then a short information about how the story should continue. continue the story but leave the ending open. give me also 2-4 options on how the story could continue.
+
+here is the current story that you should continue: --story--
+
+here is the information on how the story should continue: --option--
+
+return {newStorySnippet:string,options:Array<string>}

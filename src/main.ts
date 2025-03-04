@@ -17,9 +17,10 @@ app.use(parseURLQuery());
 
 app.use((req,res,next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', '*');
   next();
-})
+});
 
 // forwards all requests under /api to the routeManager, wich distributes them further
 app.use('/api', RouteManager);
