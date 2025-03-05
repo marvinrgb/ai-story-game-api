@@ -4,7 +4,7 @@ import { auth } from 'express-oauth2-jwt-bearer';
 
 
 const jwtCheck = auth({
-  audience: 'http://localhost:3000',
+  audience: process.env.AUTH_AUDIENCE || 'http://localhost:3000',
   issuerBaseURL: 'https://dev-marvinrgb.eu.auth0.com/'
 });
 
