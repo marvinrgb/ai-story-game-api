@@ -18,6 +18,14 @@ const ai_handler_1 = require("../ai-handler");
 const auth_1 = require("../auth");
 const axios_1 = __importDefault(require("axios"));
 const router = (0, express_1.Router)();
+router.get("/suggestion", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.send(yield (0, ai_handler_1.getStoryStarterSuggestions)());
+    }
+    catch (error) {
+        return next(error);
+    }
+}));
 router.get("/public", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const db = new client_1.PrismaClient();
@@ -107,11 +115,11 @@ router.get('/', auth_1.jwtCheck, (req, res, next) => __awaiter(void 0, void 0, v
     }
 }));
 router.put("/", auth_1.jwtCheck, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _b;
+    var _a;
     try {
         const user_data = (yield axios_1.default.get("https://dev-marvinrgb.eu.auth0.com/userinfo", {
             headers: {
-                Authorization: `Bearer ${(_b = req.auth) === null || _b === void 0 ? void 0 : _b.token}`
+                Authorization: `Bearer ${(_a = req.auth) === null || _a === void 0 ? void 0 : _a.token}`
             }
         })).data;
         const data = yield (0, ai_handler_1.continueStory)(Number(req.query.story_id), Number(req.query.option_id), user_data.email);
@@ -122,11 +130,11 @@ router.put("/", auth_1.jwtCheck, (req, res, next) => __awaiter(void 0, void 0, v
     }
 }));
 router.post("/", auth_1.jwtCheck, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _c;
+    var _a;
     try {
         const user_data = (yield axios_1.default.get("https://dev-marvinrgb.eu.auth0.com/userinfo", {
             headers: {
-                Authorization: `Bearer ${(_c = req.auth) === null || _c === void 0 ? void 0 : _c.token}`
+                Authorization: `Bearer ${(_a = req.auth) === null || _a === void 0 ? void 0 : _a.token}`
             }
         })).data;
         // const db = new PrismaClient();

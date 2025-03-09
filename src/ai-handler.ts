@@ -8,6 +8,17 @@ const textModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 //   continueStory(2, 4)
 // }
 
+export async function getStoryStarterSuggestions(): Promise<string> {
+  let prompt: string = fs.readFileSync("./src/prompts/storySuggestions.txt", "utf-8")
+  
+  const result = await textModel.generateContent(prompt);
+  // let text = result.response.text();
+  // text = text.replace("```json", "");
+  // text = text.replace("```", "");
+
+  return result.response.text();
+}
+
 export async function createStory(tags: Array<string> = ["exiting", "interesting"], topic: string = "default", user_mail?:string) {
   const db = new PrismaClient();
   console.log(user_mail)

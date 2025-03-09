@@ -1,0 +1,3 @@
+give me a short description of an imaginary story. make it 1 to 3 sentences long. return just the description text.
+be creative and think of something new
+be fore think of a long random list of topics and then pick one

@@ -12,7 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.continueStory = exports.createStory = void 0;
+exports.getStoryStarterSuggestions = getStoryStarterSuggestions;
+exports.createStory = createStory;
+exports.continueStory = continueStory;
 const generative_ai_1 = require("@google/generative-ai");
 const client_1 = require("@prisma/client");
 const fs_1 = __importDefault(require("fs"));
@@ -22,8 +24,18 @@ const textModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 //   // createStory()
 //   continueStory(2, 4)
 // }
-function createStory(tags = ["exiting", "interesting"], topic = "default", user_mail) {
+function getStoryStarterSuggestions() {
     return __awaiter(this, void 0, void 0, function* () {
+        let prompt = fs_1.default.readFileSync("./src/prompts/storySuggestions.txt", "utf-8");
+        const result = yield textModel.generateContent(prompt);
+        // let text = result.response.text();
+        // text = text.replace("```json", "");
+        // text = text.replace("```", "");
+        return result.response.text();
+    });
+}
+function createStory() {
+    return __awaiter(this, arguments, void 0, function* (tags = ["exiting", "interesting"], topic = "default", user_mail) {
         const db = new client_1.PrismaClient();
         console.log(user_mail);
         let prompt = fs_1.default.readFileSync("./src/prompts/createStory.txt", "utf-8");
@@ -67,7 +79,6 @@ function createStory(tags = ["exiting", "interesting"], topic = "default", user_
         return story.id;
     });
 }
-exports.createStory = createStory;
 function continueStory(story_id, option_id, user_mail) {
     return __awaiter(this, void 0, void 0, function* () {
         const db = new client_1.PrismaClient();
@@ -135,4 +146,3 @@ function continueStory(story_id, option_id, user_mail) {
         return storyData;
     });
 }
-exports.continueStory = continueStory;

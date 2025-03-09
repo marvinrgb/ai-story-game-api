@@ -1,9 +1,17 @@
 import { Router, Request, Response, NextFunction} from 'express';
 import { PrismaClient } from '@prisma/client';
-import { continueStory, createStory } from '../ai-handler';
+import { continueStory, createStory, getStoryStarterSuggestions } from '../ai-handler';
 import { jwtCheck, decodeJwtPayload } from '../auth';
 import axios from "axios";
 const router = Router();
+
+router.get("/suggestion", async (req:Request, res:Response, next:NextFunction) => {
+  try {
+    res.send(await getStoryStarterSuggestions());
+  } catch (error: unknown) {
+    return next(error);
+  }
+});
 
 router.get("/public", async (req:Request, res:Response, next:NextFunction) => {
   try {
